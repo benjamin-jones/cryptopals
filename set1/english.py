@@ -1,8 +1,9 @@
 import math
+import string
 
 def ascii_check(testString):
     for i in testString:
-        if ord(i) < 0x20 or ord(i) > 0x7E:
+        if i not in string.printable:
             return False
     return True
 

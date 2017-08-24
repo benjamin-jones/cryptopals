@@ -1,7 +1,7 @@
 from english import english_cosine_sim
 
-def challenge3():
-    ciphertext = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736".decode("hex")
+def challenge3(str,verbose=True):
+    ciphertext = str.decode("hex")
 
     largest = 0.0
     cur_string = ""
@@ -14,6 +14,9 @@ def challenge3():
             largest = score
             cur_string = plaintext_trial
             cur_key = i
+    if verbose and largest > 0.0:
+        print("Key: %s" % hex(cur_key))
+        print("Plaintext: %s" %cur_string)
+        print("Score: %f" % largest)
 
-    print("Key: %s" % hex(cur_key))
-    print("Plaintext: %s" %cur_string)
+    return (largest, cur_key, cur_string)

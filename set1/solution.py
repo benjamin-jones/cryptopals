@@ -24,4 +24,26 @@ print(xor_string(test1, test2))
 
 #Challenge 3
 print ("\n\nChallenge 3")
-challenge3()
+ciphertext = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
+challenge3(ciphertext)
+
+#Challenge 4
+print("\n\nChallenge 4")
+largest = 0.0
+cur_key = 0
+cur_ptext = ""
+cur_ctext = ""
+fp = open("./4.txt","r")
+for line in fp:
+    line = line.strip()
+    score, key, ptext = challenge3(line,verbose=False)
+    if score > largest:
+        largest = score
+        cur_key = key
+        cur_ptext = ptext
+        cur_ctext = line
+print("Key = %s" % hex(cur_key))
+print("Score = %f" % largest)
+print("Ciphertext = %s" % cur_ctext)
+print("Plaintext = %s" % cur_ptext)
+         
