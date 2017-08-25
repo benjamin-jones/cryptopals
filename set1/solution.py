@@ -1,6 +1,7 @@
 import base64
 import math
 from singleXOR_decrypt import challenge3
+from hamming import hamming_distance
 
 def hex_string_to_bytes(str):
     return str.decode("hex")
@@ -10,6 +11,18 @@ def xor_string(buf1, buf2):
     buf2 = hex_string_to_bytes(buf2)
 
     return "".join([chr(ord(a)^ord(b)) for a,b in zip(buf1, buf2)]).encode("hex")
+
+def xor_encrypt(ptext, key):
+    length = len(ptext)
+    if length > len(key):
+        key = key*(length/len(key))
+        if (length % len(key)) != 0:
+            for i in range(0, length % len(key)):
+                key += key[i]
+    if len(key) != length:
+        print("Keylen = %d; Ptext = %d" % (len(key), length))
+        raise ValueError
+    return xor_string(ptext.encode('hex'), key.encode('hex'))
 
 #Challenge 1
 test = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
@@ -46,4 +59,22 @@ print("Key = %s" % hex(cur_key))
 print("Score = %f" % largest)
 print("Ciphertext = %s" % cur_ctext)
 print("Plaintext = %s" % cur_ptext)
-         
+
+#Challenge 5
+print("\n\nChallenge 5")
+ptext = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal"
+key = "ICE"
+print("Encrypting %s with key %s" % (ptext, key))
+print(xor_encrypt(ptext, key))
+
+#Challenge 6
+print("\n\nChallenge 6")
+distance = hamming_distance("this is a test","wokka wokka!!!")
+
+if distance != 37:
+    print("Distance = %d" % distance)
+    raise ValueError
+
+
+
+
