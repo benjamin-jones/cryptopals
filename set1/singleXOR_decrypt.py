@@ -1,6 +1,6 @@
 from english import english_cosine_sim
 
-def challenge3(str,verbose=True):
+def single_xor_finder(str,verbose=True):
     ciphertext = str.decode("hex")
 
     largest = 0.0
